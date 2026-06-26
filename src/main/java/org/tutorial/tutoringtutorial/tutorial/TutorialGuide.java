@@ -7,6 +7,8 @@ public record TutorialGuide(
     String subtitle,
     String useCase,
     String chapterZero,
+    List<String> chapterZeroChecklist,
+    String nextChapter,
     String referenceTagStrategy,
     String versioningStrategy,
     String checkpointWorkflow,

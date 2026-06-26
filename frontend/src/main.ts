@@ -24,6 +24,8 @@ type TutorialGuide = {
   subtitle: string;
   useCase: string;
   chapterZero: string;
+  chapterZeroChecklist: string[];
+  nextChapter: string;
   referenceTagStrategy: string;
   versioningStrategy: string;
   baselineVersion: TutorialVersion;
@@ -68,6 +70,7 @@ function renderGuide(root: HTMLDivElement, guide: TutorialGuide): void {
   root.replaceChildren(
       hero(guide),
     section('What this is for', guide.useCase, usagePanel(guide)),
+    section('Chapter 0 done when', guide.nextChapter, checklistPanel(guide.chapterZeroChecklist)),
     section('Requirements', 'A Linux or macOS machine is enough to recreate the tutorial step by step. Windows is left as an exercise to the reader.', requirementsPanel(guide.requirements)),
       section('From source', guide.checkpointWorkflow, sourceWorkflowPanel(guide)),
       section('Branch and tag', guide.branchingStrategy, branchingPanel(guide)),
@@ -119,6 +122,12 @@ function usagePanel(guide: TutorialGuide): HTMLElement {
       ]),
       copy(`The default path is local cloning; GitHub fork/push workflows are optional for users who want their own remote.`)
   );
+  return panel;
+}
+
+function checklistPanel(items: string[]): HTMLElement {
+  const panel = element('div', 'panel');
+  panel.append(heading('h3', 'Success criteria'), checklist(items));
   return panel;
 }
 

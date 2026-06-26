@@ -3,6 +3,12 @@
   "subtitle": "A chaptered web guide that starts at Chapter 0 with a Spring Boot backend, a TypeScript frontend, Docker packaging, and reference tags for every stage.",
   "useCase": "A self-paced, hands-on learning repo for recreating the project step by step from a clone of the repository.",
   "chapterZero": "Chapter 0 launches the guide and shows the full learning path.",
+  "chapterZeroChecklist": [
+    "The page loads and the tutorial text is visible.",
+    "The roadmap and reference tags render on the page.",
+    "You can clone the repo, branch Chapter 0, and run make dev successfully."
+  ],
+  "nextChapter": "Once Chapter 0 is stable, Chapter 1 adds the first real boundary and moves the learner into service decomposition.",
   "referenceTagStrategy": "Each chapter carries a Git tag, Docker tag, and Kubernetes tag so learners can compare their work against a known checkpoint.",
   "versioningStrategy": "Versions follow semantic versioning, with each chapter advancing the minor version and preserving the milestone tag.",
   "checkpointWorkflow": "Every chapter can be recreated from source by checking out the chapter tag and rebuilding locally.",

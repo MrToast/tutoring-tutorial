@@ -5,6 +5,8 @@ Chapter 0 of a microservices and Kubernetes tutorial site.
 This app runs on **Java 17+** and uses a Spring Boot backend with a TypeScript frontend.
 The chapter content lives in `src/main/resources/tutorial/guide.json`.
 It is meant for self-paced, step-by-step recreation from a clone of the repository.
+Chapter 0 is complete when the page renders, the roadmap and tags are visible, and `make dev` works from a fresh clone.
+Chapter 1 is the next step and introduces the first real service boundary.
 
 ## Requirements
 
