@@ -4,6 +4,7 @@ Chapter 0 of a microservices and Kubernetes tutorial site.
 
 This app runs on **Java 17+** and uses a Spring Boot backend with a TypeScript frontend.
 The chapter content lives in `src/main/resources/tutorial/guide.json`.
+It is meant for self-paced, step-by-step recreation from a clone of the repository.
 
 ## Requirements
 
@@ -22,6 +23,7 @@ Windows is left as an exercise to the reader.
 - reference Git, Docker, and Kubernetes tags for each chapter
 - semantic version checkpoints that advance by chapter
 - comparison guidance so you can line up your own work against the tutorial checkpoints
+- a clone-first workflow for learners who want to rebuild each checkpoint locally
 
 ## Run locally
 
@@ -46,12 +48,15 @@ Open http://localhost:8080
 
 ## Build from source
 
-Each chapter can be recreated from source by checking out its Git tag and rebuilding locally:
+Each chapter can be recreated from source by cloning the repo and rebuilding locally:
 
 ```bash
-git checkout chapter-0-launch
+git clone <repo-url>
+git checkout -b ch0 ch0-v0.1.0
 make dev
 ```
+
+If you want to push your own chapter work to GitHub, fork the repository first and point your clone at the fork. From there, create each later chapter branch from the previous chapter tag and tag your own checkpoint before moving on.
 
 ## Docker
 

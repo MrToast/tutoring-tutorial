@@ -22,10 +22,12 @@ type TutorialChapter = {
 type TutorialGuide = {
   title: string;
   subtitle: string;
+  useCase: string;
   chapterZero: string;
   referenceTagStrategy: string;
   versioningStrategy: string;
   baselineVersion: TutorialVersion;
+  branchingStrategy: string;
   requirements: TutorialRequirements;
   checkpointWorkflow: string;
   chapters: TutorialChapter[];
@@ -65,8 +67,10 @@ async function loadGuide(): Promise<TutorialGuide> {
 function renderGuide(root: HTMLDivElement, guide: TutorialGuide): void {
   root.replaceChildren(
       hero(guide),
-      section('Requirements', 'A Linux or macOS machine is enough to recreate the tutorial step by step. Windows is left as an exercise to the reader.', requirementsPanel(guide.requirements)),
+    section('What this is for', guide.useCase, usagePanel(guide)),
+    section('Requirements', 'A Linux or macOS machine is enough to recreate the tutorial step by step. Windows is left as an exercise to the reader.', requirementsPanel(guide.requirements)),
       section('From source', guide.checkpointWorkflow, sourceWorkflowPanel(guide)),
+      section('Branch and tag', guide.branchingStrategy, branchingPanel(guide)),
       section('Versioning', 'Use semantic versions as the tutorial grows. Each chapter advances the minor version and keeps a milestone tag to compare against.', versionPanel(guide)),
       section('Roadmap', 'Each chapter increases the surface area: first the guide, then service boundaries, then deployable containers, then Kubernetes.', chaptersGrid(guide.chapters)),
       section('Reference tags', 'Use the tags to compare your work against a known checkpoint for each chapter.', tagsGrid(guide.chapters)),
@@ -100,6 +104,22 @@ function hero(guide: TutorialGuide): HTMLElement {
       ])
   );
   return wrapper;
+}
+
+function usagePanel(guide: TutorialGuide): HTMLElement {
+  const panel = element('div', 'panel');
+  panel.append(
+      heading('h3', 'How users should use it'),
+      checklist([
+        'Clone the repo and start at Chapter 0',
+        'Follow the chapter page step by step',
+        'Recreate the branch/tag checkpoint for that chapter',
+        'Compare your work against the listed tags',
+        'Move to the next chapter only after the current one matches'
+      ]),
+      copy(`The default path is local cloning; GitHub fork/push workflows are optional for users who want their own remote.`)
+  );
+  return panel;
 }
 
 function chaptersGrid(chapters: TutorialChapter[]): HTMLElement {
@@ -196,13 +216,29 @@ function requirementsPanel(requirements: TutorialRequirements): HTMLElement {
 function sourceWorkflowPanel(guide: TutorialGuide): HTMLElement {
   const panel = element('div', 'panel');
   panel.append(
-      heading('h3', 'Skip forward from source'),
-      copy('Each chapter can be recreated from Git by checking out the chapter tag and rebuilding locally.'),
+      heading('h3', 'Bootstrap from your clone'),
+      copy('Clone the repository, then create Chapter 0 from the Chapter 0 tag before rebuilding locally.'),
       checklist([
-        'git checkout <chapter-tag>',
+        'git clone <repo-url>',
+        'git checkout -b ch0 ch0-v0.1.0',
         'make dev'
       ]),
       copy(`Start with ${guide.chapters[0].tags.git} if you want to rebuild Chapter 0 from scratch.`)
+  );
+  return panel;
+}
+
+function branchingPanel(guide: TutorialGuide): HTMLElement {
+  const panel = element('div', 'panel');
+  panel.append(
+      heading('h3', 'Branch from the last chapter'),
+      copy(guide.branchingStrategy),
+      checklist([
+        'git checkout -b <chapter-branch> <previous-chapter-tag>',
+        'git tag -a <chapter-tag> -m "Chapter checkpoint"',
+        'make dev'
+      ]),
+      copy(`For Chapter 1, branch from ${guide.chapters[0].tags.git} and tag your own Chapter 1 checkpoint.`)
   );
   return panel;
 }

@@ -1,10 +1,12 @@
 {
   "title": "Microservices and Kubernetes Tutorial",
   "subtitle": "A chaptered web guide that starts at Chapter 0 with a Spring Boot backend, a TypeScript frontend, Docker packaging, and reference tags for every stage.",
+  "useCase": "A self-paced, hands-on learning repo for recreating the project step by step from a clone of the repository.",
   "chapterZero": "Chapter 0 launches the guide and shows the full learning path.",
   "referenceTagStrategy": "Each chapter carries a Git tag, Docker tag, and Kubernetes tag so learners can compare their work against a known checkpoint.",
   "versioningStrategy": "Versions follow semantic versioning, with each chapter advancing the minor version and preserving the milestone tag.",
   "checkpointWorkflow": "Every chapter can be recreated from source by checking out the chapter tag and rebuilding locally.",
+  "branchingStrategy": "After Chapter 0 is in place, create each later chapter branch from the previous chapter tag and publish your own checkpoint tag before moving on.",
   "requirements": {
     "platforms": [
       "Linux or macOS",
@@ -50,10 +52,12 @@
       "compareChecklist": [
         "Confirm the page loads from the backend.",
         "Check that chapter 0 clearly describes the full roadmap.",
-        "Verify the reference tag row is visible before any later chapter work."
+        "Verify the reference tag row is visible before any later chapter work.",
+        "Confirm you are bootstrapping from a clone before creating the Chapter 0 branch."
       ],
       "sourceCommands": [
-        "git checkout chapter-0-launch",
+        "git clone <repo-url>",
+        "git checkout -b ch0 ch0-v0.1.0",
         "make dev"
       ],
       "starterCommands": [
@@ -91,7 +95,8 @@
         "The chapter data source should now be swappable."
       ],
       "sourceCommands": [
-        "git checkout chapter-1-boundary",
+        "git checkout -b ch1 ch0-v0.1.0",
+        "git tag -a ch1-v0.2.0 -m \"Chapter 1 checkpoint\"",
         "make dev"
       ],
       "starterCommands": [
@@ -129,7 +134,8 @@
         "Reference tags should describe the exact deployable version."
       ],
       "sourceCommands": [
-        "git checkout chapter-2-config",
+        "git checkout -b ch2 ch1-v0.2.0",
+        "git tag -a ch2-v0.3.0 -m \"Chapter 2 checkpoint\"",
         "make dev"
       ],
       "starterCommands": [
@@ -167,7 +173,8 @@
         "The comparison tag should identify the distributed checkpoint."
       ],
       "sourceCommands": [
-        "git checkout chapter-3-service-calls",
+        "git checkout -b ch3 ch2-v0.3.0",
+        "git tag -a ch3-v0.4.0 -m \"Chapter 3 checkpoint\"",
         "make dev"
       ],
       "starterCommands": [
@@ -205,7 +212,8 @@
         "The tutorial should still open in a browser after the move."
       ],
       "sourceCommands": [
-        "git checkout chapter-4-kubernetes",
+        "git checkout -b ch4 ch3-v0.4.0",
+        "git tag -a ch4-v0.5.0 -m \"Chapter 4 checkpoint\"",
         "make dev"
       ],
       "starterCommands": [
@@ -243,7 +251,8 @@
         "The roadmap should end with a clear next step."
       ],
       "sourceCommands": [
-        "git checkout chapter-5-operate",
+        "git checkout -b ch5 ch4-v0.5.0",
+        "git tag -a ch5-v0.6.0 -m \"Chapter 5 checkpoint\"",
         "make dev"
       ],
       "starterCommands": [
