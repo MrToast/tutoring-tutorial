@@ -36,13 +36,13 @@ make dev
 Or run the steps manually:
 
 ```bash
-cd /Users/jsandy/jsandy-projects/tutoring-tutorial/frontend
+cd <project-root>/frontend
 npm install
 npm run build
 ```
 
 ```bash
-cd /Users/jsandy/jsandy-projects/tutoring-tutorial
+cd <project-root>
 ./gradlew bootRun
 ```
 
