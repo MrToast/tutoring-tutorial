@@ -1,0 +1,63 @@
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version '3.4.0'
+  id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'org.tutorial'
+version = '0.0.1-SNAPSHOT'
+description = 'TutoringTutorial'
+
+java {
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(17)
+  }
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+def frontendDir = file("$projectDir/frontend")
+def frontendDistDir = file("$frontendDir/dist")
+def skipFrontendBuild = providers.gradleProperty('skipFrontendBuild').map { it.toBoolean() }.orElse(false)
+
+tasks.register('npmInstall', Exec) {
+  onlyIf { !skipFrontendBuild.get() }
+  workingDir frontendDir
+  commandLine 'npm', 'ci'
+  inputs.files file("$frontendDir/package.json"), file("$frontendDir/package-lock.json")
+  outputs.dir file("$frontendDir/node_modules")
+}
+
+tasks.register('buildFrontend', Exec) {
+  onlyIf { !skipFrontendBuild.get() }
+  dependsOn tasks.named('npmInstall')
+  workingDir frontendDir
+  commandLine 'npm', 'run', 'build'
+  inputs.files fileTree("$frontendDir/src") { include '**/*' }, file("$frontendDir/tsconfig.json"), file("$frontendDir/package.json"), file("$frontendDir/package-lock.json"), file("$frontendDir/scripts/build.mjs")
+  outputs.dir frontendDistDir
+}
+
+tasks.named('processResources') {
+  if (!skipFrontendBuild.get()) {
+    dependsOn tasks.named('buildFrontend')
+  }
+  from(frontendDistDir) {
+    into 'static'
+  }
+}
+
+tasks.named('bootRun') {
+  dependsOn tasks.named('buildFrontend')
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}

@@ -1,0 +1,158 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 24%),
+    linear-gradient(180deg, #0f172a 0%, #111827 100%);
+}
+
+.shell {
+  width: min(1360px, calc(100vw - 64px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.hero,
+.panel,
+.chapter-card {
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32);
+}
+
+.hero {
+  border-radius: 28px;
+  padding: 32px;
+  display: grid;
+  gap: 16px;
+  width: 100%;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #38bdf8;
+  font-size: 0.75rem;
+  margin: 0 0 10px;
+}
+
+.hero h1,
+.section h2 {
+  margin: 0;
+  line-height: 1.05;
+}
+
+.hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  max-width: 14ch;
+}
+
+.chapter-grid,
+.tag-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.pill,
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.12);
+  color: #bae6fd;
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  font-size: 0.92rem;
+}
+
+.section {
+  margin-top: 28px;
+}
+
+.section h2 {
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  margin-bottom: 12px;
+}
+
+.section p {
+  color: #cbd5e1;
+  margin: 0 0 16px;
+}
+
+.chapter-grid {
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+.chapter-card,
+.panel {
+  border-radius: 22px;
+  padding: 20px;
+}
+
+.chapter-card h3 {
+  margin: 6px 0 10px;
+}
+
+.chapter-card .summary,
+.chapter-card .small,
+.panel .small {
+  color: #94a3b8;
+}
+
+.chapter-card ul,
+.panel ul {
+  margin: 16px 0 0;
+  padding-left: 18px;
+  color: #e2e8f0;
+}
+
+.tag-grid {
+  grid-template-columns: 1fr;
+  width: 100%;
+}
+
+.tag-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+
+.tag-row:last-child {
+  border-bottom: 0;
+}
+
+.tag-label {
+  color: #94a3b8;
+}
+
+.code {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  overflow-x: auto;
+  color: #86efac;
+}
+
+.footer {
+  margin-top: 28px;
+  color: #94a3b8;
+  text-align: center;
+}

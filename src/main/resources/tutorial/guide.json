@@ -1,0 +1,261 @@
+{
+  "title": "Microservices and Kubernetes Tutorial",
+  "subtitle": "A chaptered web guide that starts at Chapter 0 with a Spring Boot backend, a TypeScript frontend, Docker packaging, and reference tags for every stage.",
+  "chapterZero": "Chapter 0 launches the guide and shows the full learning path.",
+  "referenceTagStrategy": "Each chapter carries a Git tag, Docker tag, and Kubernetes tag so learners can compare their work against a known checkpoint.",
+  "versioningStrategy": "Versions follow semantic versioning, with each chapter advancing the minor version and preserving the milestone tag.",
+  "checkpointWorkflow": "Every chapter can be recreated from source by checking out the chapter tag and rebuilding locally.",
+  "requirements": {
+    "platforms": [
+      "Linux or macOS",
+      "Windows is left as an exercise to the reader"
+    ],
+    "tools": [
+      "Git",
+      "Java 17+",
+      "Node.js with npm",
+      "Docker",
+      "make"
+    ],
+    "notes": [
+      "A fresh clone plus a chapter tag is enough to rebuild any checkpoint.",
+      "Use make dev from the root to install frontend dependencies, build the frontend, and start Spring Boot."
+    ]
+  },
+  "baselineVersion": {
+    "major": 0,
+    "minor": 1,
+    "patch": 0,
+    "milestone": "chapter-0-launch"
+  },
+  "chapters": [
+    {
+      "chapter": 0,
+      "slug": "launch-the-guide",
+      "title": "Chapter 0: Launch the guide",
+      "summary": "Create the first working page, expose the chapter roadmap, and make the reference tags visible from the start.",
+      "complexity": "Foundation",
+      "outcome": "A working Spring Boot page backed by TypeScript that introduces the whole tutorial.",
+      "version": {
+        "major": 0,
+        "minor": 1,
+        "patch": 0,
+        "milestone": "chapter-0-launch"
+      },
+      "learningGoals": [
+        "Understand the shape of the tutorial before writing business logic.",
+        "Load all chapter metadata from a Spring Boot endpoint.",
+        "Render the guide in a browser with TypeScript."
+      ],
+      "compareChecklist": [
+        "Confirm the page loads from the backend.",
+        "Check that chapter 0 clearly describes the full roadmap.",
+        "Verify the reference tag row is visible before any later chapter work."
+      ],
+      "sourceCommands": [
+        "git checkout chapter-0-launch",
+        "make dev"
+      ],
+      "starterCommands": [
+        "docker compose up --build",
+        "./gradlew bootRun",
+        "open http://localhost:8080"
+      ],
+      "tags": {
+        "git": "chapter-0-launch",
+        "docker": "tutoring-tutorial:chapter-0",
+        "kubernetes": "tutorial/chapter-0"
+      }
+    },
+    {
+      "chapter": 1,
+      "slug": "single-service-to-microservice",
+      "title": "Chapter 1: Split the first boundary",
+      "summary": "Refactor the guide into a small service plus a UI shell so the first microservice boundary becomes visible.",
+      "complexity": "Simple service boundary",
+      "outcome": "Introduce a backend API that owns chapter content instead of hard-coding it in the page.",
+      "version": {
+        "major": 0,
+        "minor": 2,
+        "patch": 0,
+        "milestone": "chapter-1-boundary"
+      },
+      "learningGoals": [
+        "Move chapter data behind an API contract.",
+        "Treat the frontend as a consumer of a bounded backend.",
+        "Compare the service tag with your local branch after the refactor."
+      ],
+      "compareChecklist": [
+        "The API should still serve the same chapter metadata.",
+        "The UI should keep rendering without changing the layout.",
+        "The chapter data source should now be swappable."
+      ],
+      "sourceCommands": [
+        "git checkout chapter-1-boundary",
+        "make dev"
+      ],
+      "starterCommands": [
+        "git diff chapter-0-launch..chapter-1-boundary",
+        "docker build -t tutoring-tutorial:chapter-1 .",
+        "curl http://localhost:8080/api/guide"
+      ],
+      "tags": {
+        "git": "chapter-1-boundary",
+        "docker": "tutoring-tutorial:chapter-1",
+        "kubernetes": "tutorial/chapter-1"
+      }
+    },
+    {
+      "chapter": 2,
+      "slug": "compose-and-configure",
+      "title": "Chapter 2: Add compose and configuration",
+      "summary": "Introduce environment-specific configuration so the same service can run locally, in Docker, and later in Kubernetes.",
+      "complexity": "Config management",
+      "outcome": "Move from one-off startup values to repeatable configuration with named environments.",
+      "version": {
+        "major": 0,
+        "minor": 3,
+        "patch": 0,
+        "milestone": "chapter-2-config"
+      },
+      "learningGoals": [
+        "Separate runtime config from code.",
+        "Use container-friendly defaults.",
+        "Prepare the app for deployment manifests."
+      ],
+      "compareChecklist": [
+        "The app should still boot with one command.",
+        "Docker should carry the same settings as local execution.",
+        "Reference tags should describe the exact deployable version."
+      ],
+      "sourceCommands": [
+        "git checkout chapter-2-config",
+        "make dev"
+      ],
+      "starterCommands": [
+        "docker compose up -d",
+        "./gradlew clean bootJar",
+        "kubectl apply -f deploy/k8s"
+      ],
+      "tags": {
+        "git": "chapter-2-config",
+        "docker": "tutoring-tutorial:chapter-2",
+        "kubernetes": "tutorial/chapter-2"
+      }
+    },
+    {
+      "chapter": 3,
+      "slug": "service-to-service",
+      "title": "Chapter 3: Model service-to-service calls",
+      "summary": "Add a second service and show how requests, health checks, and failures flow across service boundaries.",
+      "complexity": "Intermediate microservices",
+      "outcome": "Make the tutorial show why microservices need explicit contracts and observability.",
+      "version": {
+        "major": 0,
+        "minor": 4,
+        "patch": 0,
+        "milestone": "chapter-3-service-calls"
+      },
+      "learningGoals": [
+        "Describe one service calling another.",
+        "Add a health endpoint and failure-aware UI copy.",
+        "Use tags to compare the baseline and the distributed version."
+      ],
+      "compareChecklist": [
+        "The guide should call out dependency order.",
+        "The UI should explain what to observe when one service is down.",
+        "The comparison tag should identify the distributed checkpoint."
+      ],
+      "sourceCommands": [
+        "git checkout chapter-3-service-calls",
+        "make dev"
+      ],
+      "starterCommands": [
+        "docker compose logs -f",
+        "curl http://localhost:8080/api/chapters/service-to-service",
+        "kubectl get pods"
+      ],
+      "tags": {
+        "git": "chapter-3-service-calls",
+        "docker": "tutoring-tutorial:chapter-3",
+        "kubernetes": "tutorial/chapter-3"
+      }
+    },
+    {
+      "chapter": 4,
+      "slug": "kubernetes-deployment",
+      "title": "Chapter 4: Move into Kubernetes",
+      "summary": "Translate the working containers into deployments, services, and rollouts that Kubernetes can manage.",
+      "complexity": "Deployment",
+      "outcome": "Show the difference between container packaging and cluster orchestration.",
+      "version": {
+        "major": 0,
+        "minor": 5,
+        "patch": 0,
+        "milestone": "chapter-4-kubernetes"
+      },
+      "learningGoals": [
+        "Turn a container image into a deployment unit.",
+        "Wire services, ingress, and config together.",
+        "Use the chapter tag to compare your manifests."
+      ],
+      "compareChecklist": [
+        "The page should explain the deployment objects it introduces.",
+        "The Kubernetes reference tag should match the deployed release.",
+        "The tutorial should still open in a browser after the move."
+      ],
+      "sourceCommands": [
+        "git checkout chapter-4-kubernetes",
+        "make dev"
+      ],
+      "starterCommands": [
+        "kubectl apply -f deploy/k8s",
+        "kubectl rollout status deployment/tutorial",
+        "kubectl get svc"
+      ],
+      "tags": {
+        "git": "chapter-4-kubernetes",
+        "docker": "tutoring-tutorial:chapter-4",
+        "kubernetes": "tutorial/chapter-4"
+      }
+    },
+    {
+      "chapter": 5,
+      "slug": "operate-and-evolve",
+      "title": "Chapter 5: Operate and evolve",
+      "summary": "Close with rollout strategy, observability, and comparison notes that help the learner keep iterating safely.",
+      "complexity": "Operational maturity",
+      "outcome": "Teach the last mile: release confidence, drift detection, and repeatable comparisons.",
+      "version": {
+        "major": 0,
+        "minor": 6,
+        "patch": 0,
+        "milestone": "chapter-5-operate"
+      },
+      "learningGoals": [
+        "Add operational habits to the tutorial workflow.",
+        "Compare images, manifests, and runtime behavior.",
+        "Leave a pattern the learner can reuse on new systems."
+      ],
+      "compareChecklist": [
+        "The tutorial should make release comparison obvious.",
+        "The reference tag strategy should be visible throughout the page.",
+        "The roadmap should end with a clear next step."
+      ],
+      "sourceCommands": [
+        "git checkout chapter-5-operate",
+        "make dev"
+      ],
+      "starterCommands": [
+        "kubectl describe deployment/tutorial",
+        "docker image inspect tutoring-tutorial:chapter-5",
+        "git tag chapter-5-operate"
+      ],
+      "tags": {
+        "git": "chapter-5-operate",
+        "docker": "tutoring-tutorial:chapter-5",
+        "kubernetes": "tutorial/chapter-5"
+      }
+    }
+  ]
+}
